@@ -16,12 +16,25 @@ public class MarkdownParse {
             int openParen = markdown.indexOf("(", nextCloseBracket);
             int closeParen = markdown.indexOf(")", openParen);
 
+            //if missing paren/bracket
             if (nextOpenBracket == -1 || nextCloseBracket == -1 || openParen == -1 || closeParen == -1) {
-                System.out.println("Missing bracket/parentheses. Working link(s):");
+                break;
+            }
+            else if (openParen - 1 != nextCloseBracket) {
                 break;
             }
 
-            toReturn.add(markdown.substring(openParen + 1, closeParen));
+            //does not output words
+            if (nextOpenBracket == 0) {
+                toReturn.add(markdown.substring(openParen + 1, closeParen));
+                currentIndex = closeParen + 1;
+            }
+            else if (!markdown.substring(nextOpenBracket - 1, nextCloseBracket).equals("!")) {
+                toReturn.add(markdown.substring(openParen + 1, closeParen));
+                currentIndex = closeParen + 1;
+            }
+
+            // toReturn.add(markdown.substring(openParen + 1, closeParen));
             currentIndex = closeParen + 1;
         }
         return toReturn;
