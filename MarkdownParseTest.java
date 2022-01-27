@@ -66,4 +66,12 @@ static boolean containsNewLine(String str) {
         ArrayList<String> linkOne = getLinks(contents);
         assertEquals("[https://something.com, some-page.html]", linkOne.toString());
     }
+
+    @Test
+    public void testGetLinksFe() throws IOException{
+        Path fileName = Path.of("testFile3.md");
+	    String contents = Files.readString(fileName);
+        ArrayList<String> linkOne = getLinks(contents);
+        assertEquals("[https::look parentheses()]", linkOne.toString());
+    }
 }
