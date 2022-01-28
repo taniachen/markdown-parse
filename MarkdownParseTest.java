@@ -42,25 +42,39 @@ public class MarkdownParseTest {
                 currentIndex = openParen + 1;
                 continue;
             }
-            if(containsNewLine(markdown.substring(openParen + 1, closeParen))){
+            int closeParenUsed = closeParen;
+            if(containsLine(markdown.substring(closeParen, markdown.length()))){ //this doesn't actually run
                 // New variable for finding the index of new lines
-                StringBuffer stringBuffer = new StringBuffer(markdown.substring(openParen + 1, closeParen));
+                StringBuffer stringBuffer = new StringBuffer(markdown.substring(closeParen + 1, markdown.length()));
                 currentIndex = stringBuffer.indexOf("\n") + 1;
-                // System.out.println("New line at " + stringBuffer.indexOf("\n"));
+                System.out.println("New line at " + stringBuffer.indexOf("\n"));
+                toReturn.add(markdown.substring(openParen + 1, closeParen));
+                currentIndex = closeParen+1;
             }
-            else {
-                if (markdown.indexOf(")", closeParen+1) == closeParen+2 ){
-                    toReturn.add(markdown.substring(openParen + 1, closeParen+1));
+            else{
+                System.out.println("Markdown length" + markdown.length());
+                while(closeParen < markdown.length()-1 && closeParen != -1){
+                    closeParenUsed = closeParen;
+                    closeParen = markdown.indexOf(")", closeParen+1);
+                    System.out.println(closeParen);
                 }
-                else{
+                if (closeParen == closeParenUsed){
                     toReturn.add(markdown.substring(openParen + 1, closeParen));
                 }
-                currentIndex = closeParen + 1;
+                else{
+                    toReturn.add(markdown.substring(openParen + 1, closeParenUsed+1));
+                }
+                currentIndex=markdown.length();
             }
         }
+        System.out.println(toReturn.toString());
         return toReturn;
     }
 
+    boolean containsLine(String str){
+    String newline = System.getProperty("line.separator");
+    return str.contains(newline);
+    }
 static boolean containsNewLine(String str) {
     Pattern regex = Pattern.compile("^(.*)$", Pattern.MULTILINE);
         return regex.split(str).length > 0;
@@ -79,5 +93,21 @@ static boolean containsNewLine(String str) {
 	    String contents = Files.readString(fileName);
         ArrayList<String> linkOne = getLinks(contents);
         assertEquals("[https::look parentheses()]", linkOne.toString());
+    }
+
+    @Test
+    public void testGetLinksTwo() throws IOException{
+        Path fileName = Path.of("testFile2.md");
+	    String contents = Files.readString(fileName);
+        ArrayList<String> linkOne = getLinks(contents);
+        assertEquals("[]", linkOne.toString());
+    }
+
+    @Test
+    public void testGetLinksFour() throws IOException{
+        Path fileName = Path.of("testFile4.md");
+	    String contents = Files.readString(fileName);
+        ArrayList<String> linkOne = getLinks(contents);
+        assertEquals("[www.youtube.com, www.google.com, www.amazon.com()()()()()()()()()()()()]", linkOne.toString());
     }
 }
