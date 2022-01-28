@@ -18,7 +18,8 @@ public class MarkdownParse {
             int closeParen = markdown.indexOf(")", openParen);
            
              //difference between Image vs Link
-             if(markdown.charAt(nextOpenBracket-1)=='!'){
+             //check if link on first line
+             if(nextOpenBracket != 0 && markdown.charAt(nextOpenBracket-1)=='!'){
                 currentIndex = closeParen+1;
                 continue;
             }
