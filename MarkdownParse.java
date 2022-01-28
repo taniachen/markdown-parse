@@ -41,8 +41,14 @@ public class MarkdownParse {
                 StringBuffer stringBuffer = new StringBuffer(markdown.substring(openParen + 1, closeParen));
                 currentIndex = stringBuffer.indexOf("\n") + 1;
                 // System.out.println("New line at " + stringBuffer.indexOf("\n"));
-            } else {
-                toReturn.add(markdown.substring(openParen + 1, closeParen));
+            }
+            else {
+                if (markdown.indexOf(")", closeParen+1) == closeParen+2 ){
+                    toReturn.add(markdown.substring(openParen + 1, closeParen+1));
+                }
+                else{
+                    toReturn.add(markdown.substring(openParen + 1, closeParen));
+                }
                 currentIndex = closeParen + 1;
             }
         }
