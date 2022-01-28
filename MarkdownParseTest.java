@@ -14,7 +14,7 @@ public class MarkdownParseTest {
         assertEquals(2, 1 + 1);
     }
 
-    public ArrayList<String> getLinks(String markdown) {
+    public static ArrayList<String> getLinks(String markdown) {
         ArrayList<String> toReturn = new ArrayList<>();
         // find the next [, then find the ], then find the (, then take up to
         // the next )
@@ -42,39 +42,25 @@ public class MarkdownParseTest {
                 currentIndex = openParen + 1;
                 continue;
             }
-            int closeParenUsed = closeParen;
-            if(containsLine(markdown.substring(closeParen, markdown.length()))){ //this doesn't actually run
+            if(containsNewLine(markdown.substring(openParen + 1, closeParen))){
                 // New variable for finding the index of new lines
-                StringBuffer stringBuffer = new StringBuffer(markdown.substring(closeParen + 1, markdown.length()));
+                StringBuffer stringBuffer = new StringBuffer(markdown.substring(openParen + 1, closeParen));
                 currentIndex = stringBuffer.indexOf("\n") + 1;
-                System.out.println("New line at " + stringBuffer.indexOf("\n"));
-                toReturn.add(markdown.substring(openParen + 1, closeParen));
-                currentIndex = closeParen+1;
+                // System.out.println("New line at " + stringBuffer.indexOf("\n"));
             }
-            else{
-                System.out.println("Markdown length" + markdown.length());
-                while(closeParen < markdown.length()-1 && closeParen != -1){
-                    closeParenUsed = closeParen;
-                    closeParen = markdown.indexOf(")", closeParen+1);
-                    System.out.println(closeParen);
-                }
-                if (closeParen == closeParenUsed){
-                    toReturn.add(markdown.substring(openParen + 1, closeParen));
+            else {
+                if (markdown.indexOf(")", closeParen+1) == closeParen+2 ){
+                    toReturn.add(markdown.substring(openParen + 1, closeParen+1));
                 }
                 else{
-                    toReturn.add(markdown.substring(openParen + 1, closeParenUsed+1));
+                    toReturn.add(markdown.substring(openParen + 1, closeParen));
                 }
-                currentIndex=markdown.length();
+                currentIndex = closeParen + 1;
             }
         }
-        System.out.println(toReturn.toString());
         return toReturn;
     }
 
-    boolean containsLine(String str){
-    String newline = System.getProperty("line.separator");
-    return str.contains(newline);
-    }
 static boolean containsNewLine(String str) {
     Pattern regex = Pattern.compile("^(.*)$", Pattern.MULTILINE);
         return regex.split(str).length > 0;
