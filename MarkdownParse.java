@@ -12,10 +12,10 @@ public class MarkdownParse {
         ArrayList<String> toReturn = new ArrayList<>();
         // find the next [, then find the ], then find the (, then take up to
         // the next )
-
+    
         int currentIndex = 0;
         while(currentIndex < markdown.length()) {
-
+    
             int nextOpenBracket = markdown.indexOf("[", currentIndex);
             if(nextOpenBracket < 0){
                 currentIndex++;
@@ -49,10 +49,10 @@ public class MarkdownParse {
         return toReturn;
     }
 
-    static boolean containsNewLine(String str) {
-        Pattern regex = Pattern.compile("^(.*)$", Pattern.MULTILINE);
-            return regex.split(str).length > 0;
-    }
+static boolean containsNewLine(String str) {
+    Pattern regex = Pattern.compile("^(.*)$", Pattern.MULTILINE);
+        return regex.split(str).length > 0;
+}
 
     /*
     *   link: https://stackoverflow.com/questions/28989930/java-newline-detection-in-strings#:~:text=You%20can%20use%20the%20regex%20pattern%20%5E%20%28.%2A%29%24,%28.%2A%29%24%22%2C%20Pattern.MULTILINE%29%3B%20return%20regex.split%20%28str%29.length%20%3E%200%3B%20%7D
