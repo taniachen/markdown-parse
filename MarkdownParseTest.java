@@ -28,4 +28,17 @@ public class MarkdownParseTest {
 
         assertEquals(List.of("https://github.com", "https://mail.google.com"), MarkdownParse.getLinks(contents));
     }
+
+    @Test
+    public void testImage() throws IOException {
+        Path file = Path.of("image.md");
+        String contents = Files.readString(file);
+
+        try {
+            assertEquals(List.of("https://testlink.com", "https://anotherlink.com"), MarkdownParse.getLinks(contents));
+        }
+        catch (IndexOutOfBoundsException e){
+
+        }
+    }
 }

@@ -24,6 +24,17 @@ public class MarkdownParse {
                 break;
             }
 
+            try {
+                if (markdown.substring(nextOpenBracket - 1, nextOpenBracket).equals("!")) {
+                    break;
+                    // currentIndex ++;
+                    // continue;
+                }
+            }
+            catch (IndexOutOfBoundsException e) {
+                //do nothing
+            }
+
             //does not output words
             if (nextOpenBracket == 0) {
                 toReturn.add(markdown.substring(openParen + 1, closeParen));
