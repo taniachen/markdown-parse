@@ -15,10 +15,10 @@ public class MarkdownParseTest {
 
     @Test
     public void testGetLinks() throws IOException {
-        Path file = Path.of("withwords.md");
+        Path file = Path.of("other-file.md");
         String contents = Files.readString(file);
 
-        assertEquals(List.of("https://github.com","https://mail.google.com"), MarkdownParse.getLinks(contents));
+        assertEquals(List.of("https://asdljsomething.com","some-page.html"), MarkdownParse.getLinks(contents));
     }
 
     @Test
