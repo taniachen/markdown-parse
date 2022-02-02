@@ -26,9 +26,8 @@ public class MarkdownParse {
 
             try {
                 if (markdown.substring(nextOpenBracket - 1, nextOpenBracket).equals("!")) {
-                    break;
-                    // currentIndex ++;
-                    // continue;
+                    currentIndex ++;
+                    continue;
                 }
             }
             catch (IndexOutOfBoundsException e) {
