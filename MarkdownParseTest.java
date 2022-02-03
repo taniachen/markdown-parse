@@ -49,9 +49,9 @@ public class MarkdownParseTest {
 
     @Test
     public void fifthTest() throws IOException{
-        Path fileName = Path.of("no-paren.md");
+        Path fileName = Path.of("links_with_extra_chars.md");
 	    String contents = Files.readString(fileName);
         ArrayList<String> links = MarkdownParse.getLinks(contents);
-        assertEquals(List.of()+"no pass",links);
+        assertEquals(List.of("yee.com"),links);
     }
 }
