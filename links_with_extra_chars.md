@@ -1,2 +1,0 @@
-[link!](yee.com
-afdskjfldsjfdslkj
