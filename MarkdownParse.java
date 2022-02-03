@@ -32,6 +32,7 @@ public class MarkdownParse {
             }
             catch (IndexOutOfBoundsException e) {
                 //do nothing
+                //test git choice
             }
 
             //does not output words
