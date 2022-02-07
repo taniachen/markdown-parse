@@ -10,6 +10,8 @@ import org.junit.*;
 public class MarkdownParseTest {
     @Test
     public void addition() {
+
+        thisvar = 3000;
         assertEquals(2, 1 + 1);
     }
 
