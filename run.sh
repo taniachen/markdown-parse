@@ -1,13 +1,20 @@
-# set -e #tells bash to quit on any nonzero exit code
+# # set -e #tells bash to quit on any nonzero exit code
 
-CLASSPATH=lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar:./
+# CLASSPATH=lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar:./
 
-javac -cp $CLASSPATH *.java
+# javac -cp $CLASSPATH *.java
 
-if [ $? != 0 ]
+# if [ $? != 0 ]
+# then
+#     echo "Exiting early!"
+#     exist 123
+# fi
+
+# java -cp $CLASSPATH org.junit.runner.JUnitCore MarkdownParseTest
+if [ $? != 00 ]
 then
-    echo "Exiting early!"
-    exist 123
+  echo "Exit code was not zero"
+  exit 1
 fi
 
-java -cp $CLASSPATH org.junit.runner.JUnitCore MarkdownParseTest
+echo "Exit code was zero"
