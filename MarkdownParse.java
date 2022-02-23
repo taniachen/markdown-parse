@@ -18,15 +18,17 @@ public class MarkdownParse {
 
             //if missing paren/bracket
             if (nextOpenBracket == -1 || nextCloseBracket == -1 || openParen == -1 || closeParen == -1) {
-                break;
+                break; //don't output
             }
-            else if (openParen - 1 != nextCloseBracket) {
-                break;
+            else if (openParen - 1 != nextCloseBracket) { //if parenthesis is not next to close bracket
+                break; //maybe continue instead for the image file
             }
 
+            //tests image if there's an exclamation point before the open bracket, increment the index 
+            //and don't output that image link
             try {
                 if (markdown.substring(nextOpenBracket - 1, nextOpenBracket).equals("!")) {
-                    currentIndex ++;
+                    currentIndex++;
                     continue;
                 }
             }
@@ -35,12 +37,13 @@ public class MarkdownParse {
                 //test git choice
             }
 
-            //does not output words
+            //does not output words || group's work, not sure
             if (nextOpenBracket == 0) {
-                toReturn.add(markdown.substring(openParen + 1, closeParen));
-                currentIndex = closeParen + 1;
+                toReturn.add(markdown.substring(openParen + 1, closeParen)); //add whatever's in (..) to toReturn
+                currentIndex = closeParen + 1; //next index
             }
-            else if (!markdown.substring(nextOpenBracket - 1, nextCloseBracket).equals("!")) {
+            else if (!markdown.substring(nextOpenBracket - 1, nextCloseBracket).equals("!")) { //if there isn't an exclamation point
+            //before [...] brackets, add whatever's in (...) to toReturn and increment index
                 toReturn.add(markdown.substring(openParen + 1, closeParen));
                 currentIndex = closeParen + 1;
             }
